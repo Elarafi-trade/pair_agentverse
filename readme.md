@@ -11,7 +11,7 @@ ELARA is a trading pair analyzer agent deployed on the ASI Agentverse. Users can
 
 ## Analyze Daily Top Trading Pairs
 
-ELARA only analyzes these 6 whitelisted pairs use Our telegram bot for all pairs support ([text](https://t.me/Elara_pair_agent_bot)) :
+ASI ELARA Agent only analyzes these 6 whitelisted pairs only use Our telegram bot for all pairs support ([text](https://t.me/Elara_pair_agent_bot)) :
 - SOL/BTC
 - BTC/SOL
 - ETH/BTC

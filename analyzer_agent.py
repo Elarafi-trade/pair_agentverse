@@ -163,7 +163,6 @@ async def handle_analyze_request(ctx: Context, sender: str, msg: AnalyzeRequest)
 # Register protocol
 res = analyzer_agent.include(analysis_protocol)
 print("Registered TradeAnalysis protocol:", res)
-print(analyzer_agent._agentverse_address)
 
 
 

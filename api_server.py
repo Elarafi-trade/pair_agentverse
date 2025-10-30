@@ -20,10 +20,8 @@ from qwen3_client import Qwen3Analyzer
 from cache_manager import get_cache_manager
 
 
-dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
-if os.path.exists(dotenv_path):
-    from dotenv import load_dotenv
-    load_dotenv(dotenv_path)
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)

@@ -10,6 +10,8 @@ from typing import Optional
 from uagents import Agent, Context, Model, Protocol
 from qwen3_client import Qwen3Analyzer
 
+from dotenv import load_dotenv
+load_dotenv()
 
 # Message models for analysis protocol
 class AnalyzeRequest(Model):

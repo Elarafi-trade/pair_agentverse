@@ -20,6 +20,8 @@ from typing import Any, Dict, List, Optional
 import requests
 from requests import Response
 
+from dotenv import load_dotenv
+load_dotenv()
 
 def _base() -> str:
     return os.environ.get("AGENT_API_BASE", "https://pair-agent.onrender.com").rstrip("/")

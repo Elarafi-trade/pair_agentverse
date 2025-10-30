@@ -13,10 +13,8 @@ from sqlalchemy.orm import declarative_base, sessionmaker, Session
 from contextlib import contextmanager
 
 
-dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
-if os.path.exists(dotenv_path):
-    from dotenv import load_dotenv
-    load_dotenv(dotenv_path)
+from dotenv import load_dotenv
+load_dotenv()
 
 Base = declarative_base()
 

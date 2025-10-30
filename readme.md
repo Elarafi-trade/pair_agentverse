@@ -360,7 +360,3 @@ async def analyze_command(update: Update, context):
   "cached": false
 }
 ```
-
----
-
-**Ready to integrate ELARA into your trading system?** Start with the HTTP API for quick testing, then migrate to agent-to-agent communication for production use! 🚀

@@ -10,6 +10,10 @@ import json
 from typing import Dict, Any, Optional
 import requests
 
+from dotenv import load_dotenv
+load_dotenv()
+
+
 
 class Qwen3Analyzer:
     """Trade analysis client using Qwen3 via OpenRouter API."""

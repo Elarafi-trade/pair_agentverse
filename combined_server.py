@@ -23,10 +23,13 @@ from qwen3_client import Qwen3Analyzer
 from cache_manager import get_cache_manager
 
 # Load environment variables
-dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
-if os.path.exists(dotenv_path):
-    from dotenv import load_dotenv
-    load_dotenv(dotenv_path)
+# dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
+# if os.path.exists(dotenv_path):
+#     from dotenv import load_dotenv
+#     load_dotenv(dotenv_path)
+
+from dotenv import load_dotenv
+load_dotenv()
 
 # Configuration
 AGENT_PORT = int(os.getenv("ANALYZER_AGENT_PORT", "8001"))
@@ -211,6 +214,17 @@ def analyze():
                 "cached": False,
             })
                 
+        except RuntimeError as e:
+            # Likely an upstream API failure (OpenRouter) or authentication issue
+            app.logger.error(f"Analysis failed: {e}")
+            import traceback
+            traceback.print_exc()
+            # Return a clear 502/503 with guidance for missing/invalid API key
+            guidance = (
+                "OpenRouter request failed. Check OPENROUTER_API_KEY and account access. "
+                "If running on Render, add OPENROUTER_API_KEY as a secret in service settings."
+            )
+            return jsonify({"error": "Upstream analysis error", "details": str(e), "guidance": guidance}), 502
         except Exception as e:
             app.logger.error(f"Analysis failed: {e}")
             import traceback

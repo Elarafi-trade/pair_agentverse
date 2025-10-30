@@ -1,4 +1,4 @@
-# How to Interact with ELARA Agent on Agentverse
+# How to Interact with ELARA uAgent on Agentverse
 
 ELARA is a trading pair analyzer agent deployed on the ASI Agentverse. Users can interact with it in multiple ways.
 
@@ -11,7 +11,7 @@ ELARA is a trading pair analyzer agent deployed on the ASI Agentverse. Users can
 
 ## Analyze Daily Top Trading Pairs
 
-ASI ELARA Agent only analyzes these 6 whitelisted pairs only use Our telegram bot for all pairs support ([text](https://t.me/Elara_pair_agent_bot)) :
+ASI ELARA uAgent only analyzes these 6 whitelisted pairs only because of rate limits of qwen3, use Our telegram bot to access Full ELARA Agent for all pairs support ([text](https://t.me/Elara_pair_agent_bot)) :
 - SOL/BTC
 - BTC/SOL
 - ETH/BTC

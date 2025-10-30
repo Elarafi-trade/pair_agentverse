@@ -31,6 +31,9 @@ from cache_manager import get_cache_manager
 from dotenv import load_dotenv
 load_dotenv()
 
+print("[DEBUG] OPENROUTER_API_KEY length:", len(os.getenv("OPENROUTER_API_KEY") or "MISSING"))
+print("[DEBUG] Running in:", os.getcwd())
+
 # Configuration
 AGENT_PORT = int(os.getenv("ANALYZER_AGENT_PORT", "8001"))
 API_PORT = int(os.getenv("PORT", os.getenv("FLASK_PORT", "10000")))

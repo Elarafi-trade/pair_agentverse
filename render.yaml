@@ -1,0 +1,58 @@
+services:
+  # ELARA Agent Service
+  - type: web
+    name: elara-agent
+    env: python
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: python agentverse_deploy.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: QWEN_MODEL
+        value: qwen/qwen3-max
+      - key: ANALYZER_AGENT_SEED
+        value: ELARA
+      - key: ANALYZER_AGENT_PORT
+        value: 8001
+      - key: AGENTVERSE_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: AGENT_API_BASE
+        value: https://pair-agent.onrender.com
+    
+  # API Server Service
+  - type: web
+    name: elara-api-server
+    env: python
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: python api_server.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: QWEN_MODEL
+        value: qwen/qwen3-max
+      - key: FLASK_HOST
+        value: 0.0.0.0
+      - key: FLASK_PORT
+        value: 10000
+      - key: ANALYZER_AGENT_SEED
+        value: ELARA
+      - key: ANALYZER_AGENT_PORT
+        value: 8001
+      - key: DATABASE_URL
+        sync: false
+      - key: CACHE_TTL_HOURS
+        value: 24
+      - key: AGENT_API_BASE
+        value: https://pair-agent.onrender.com

@@ -1,0 +1,17 @@
+requests>=2.28.0
+python-dotenv>=1.0.0
+
+# uAgents framework
+uagents>=0.12.0
+
+# Flask API server with async support
+flask[async]>=3.0.0
+flask-cors>=4.0.0
+asgiref>=3.7.0
+
+# Database (Neon PostgreSQL for caching)
+psycopg2-binary>=2.9.0
+sqlalchemy>=2.0.0
+
+# OpenRouter API (cloud-based Qwen3 inference)
+# No additional dependencies needed - uses requests

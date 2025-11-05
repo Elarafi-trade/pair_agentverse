@@ -47,6 +47,7 @@ class Qwen3Analyzer:
         beta = metrics.get("beta", 1.0)
         volatility = metrics.get("volatility", 0.0)
         
+        
         prompt = f"""You are an expert cryptocurrency pairs trading analyst. Analyze the following trading pair metrics and provide detailed reasoning.
 
 **Trading Pair:** {symbolA} / {symbolB}

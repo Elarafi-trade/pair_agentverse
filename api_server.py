@@ -279,7 +279,7 @@ def _calculate_metrics_sync(symbol_a: str, symbol_b: str, limit: int) -> Optiona
             "mean": analysis.get("spreadMean", 0.0),
             "std": analysis.get("spreadStd", 1.0),
             "beta": analysis.get("beta", 1.0),
-            "volatility": 0.0,  # Not provided by pair-agent, could calculate from spread
+            "volatility": analysis.get("volatility", 0.0),  # Not provided by pair-agent, could calculate from spread
         }
         
         app.logger.info(f"Fetched metrics: Z={metrics['zScore']:.2f}, Corr={metrics['corr']:.2f}, Beta={metrics['beta']:.2f}")
@@ -288,17 +288,16 @@ def _calculate_metrics_sync(symbol_a: str, symbol_b: str, limit: int) -> Optiona
         
     except requests.exceptions.RequestException as e:
         app.logger.error(f"Failed to fetch metrics from pair-agent: {e}")
-        # Fallback to mock data if API unavailable
-        app.logger.warning("Using mock metrics as fallback")
-        import random
-        return {
-            "zScore": random.uniform(-3.0, 3.0),
-            "corr": random.uniform(0.5, 0.95),
-            "mean": random.uniform(-0.01, 0.01),
-            "std": random.uniform(0.001, 0.01),
-            "beta": random.uniform(0.8, 1.5),
-            "volatility": random.uniform(0.01, 0.05),
-        }
+        
+        # import random
+        # return {
+        #     "zScore": random.uniform(-3.0, 3.0),
+        #     "corr": random.uniform(0.5, 0.95),
+        #     "mean": random.uniform(-0.01, 0.01),
+        #     "std": random.uniform(0.001, 0.01),
+        #     "beta": random.uniform(0.8, 1.5),
+        #     "volatility": random.uniform(0.01, 0.05),
+        # }
     except Exception as e:
         app.logger.error(f"Error processing metrics: {e}")
         return None

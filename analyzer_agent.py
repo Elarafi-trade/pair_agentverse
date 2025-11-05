@@ -23,7 +23,7 @@ class AnalyzeRequest(Model):
     spread_mean: float
     spread_std: float
     beta: float
-    volatility: Optional[float] = 0.0
+    volatility: float
     limit: Optional[int] = 200
 
 
@@ -114,7 +114,7 @@ async def handle_analyze_request(ctx: Context, sender: str, msg: AnalyzeRequest)
             "mean": msg.spread_mean,
             "std": msg.spread_std,
             "beta": msg.beta,
-            "volatility": msg.volatility or 0.0,
+            "volatility": msg.volatility,
         }
         
         # Get Qwen3 analysis

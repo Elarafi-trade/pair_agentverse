@@ -46,6 +46,13 @@ class Qwen3Analyzer:
         spread_std = metrics.get("std", 0.0)
         beta = metrics.get("beta", 1.0)
         volatility = metrics.get("volatility", 0.0)
+        # Optional extended metrics (may be None)
+        current_spread = metrics.get("currentSpread")
+        half_life = metrics.get("halfLife")
+        coint_p = metrics.get("cointegrationPValue")
+        is_coint = metrics.get("isCointegrated")
+        sharpe = metrics.get("sharpe")
+        signal_type = metrics.get("signalType")
         
         
         prompt = f"""You are an expert cryptocurrency pairs trading analyst. Analyze the following trading pair metrics and provide detailed reasoning.
@@ -59,6 +66,14 @@ class Qwen3Analyzer:
 - Spread Std Dev: {spread_std:.6f}
 - Beta (hedge ratio): {beta:.4f}
 - Volatility: {volatility:.4f}
+
+**Additional Metrics (if available):**
+{('- Current Spread: ' + str(current_spread)) if current_spread is not None else ''}
+{('- Half-life: ' + str(half_life)) if half_life is not None else ''}
+{('- Cointegration p-value: ' + str(coint_p)) if coint_p is not None else ''}
+{('- Cointegrated: ' + str(is_coint)) if is_coint is not None else ''}
+{('- Sharpe: ' + str(sharpe)) if sharpe is not None else ''}
+{('- Upstream signal: ' + str(signal_type)) if signal_type is not None else ''}
 
 **Analysis Requirements:**
 1. **Signal Strength**: Evaluate if Z-score indicates a trading opportunity (typically |Z| > 2.0 suggests mean reversion opportunity)

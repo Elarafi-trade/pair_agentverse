@@ -46,7 +46,6 @@ class AnalysisCache(Base):
 
 
 class CacheManager:
-    """Manages database connections and caching operations."""
     
     def __init__(self, database_url: Optional[str] = None):
         """Initialize cache manager with database URL."""

@@ -153,6 +153,7 @@ def analyze():
         
         # Calculate metrics
         metrics = _calculate_metrics_sync(symbol_a, symbol_b, limit)
+        print(metrics)
         
         if not metrics:
             return jsonify({"error": "Failed to calculate metrics"}), 500
@@ -172,7 +173,14 @@ def analyze():
                 "mean": metrics["mean"],
                 "std": metrics["std"],
                 "beta": metrics["beta"],
-                "volatility": metrics.get("volatility", 0.0),
+                "volatility": metrics["volatility"],
+                # extended optional metrics for richer prompt
+                "currentSpread": metrics.get("currentSpread"),
+                "halfLife": metrics.get("halfLife"),
+                "cointegrationPValue": metrics.get("cointegrationPValue"),
+                "isCointegrated": metrics.get("isCointegrated"),
+                "sharpe": metrics.get("sharpe"),
+                "signalType": metrics.get("signalType"),
             }
             
             analysis_result = qwen_analyzer.analyze_pair(analysis_metrics, temperature=0.3)
@@ -183,7 +191,15 @@ def analyze():
                 "mean": metrics["mean"],
                 "std": metrics["std"],
                 "beta": metrics["beta"],
-                "volatility": metrics.get("volatility", 0.0),
+                "volatility": metrics["volatility"],
+                # passthrough extended fields when present
+                "currentSpread": metrics.get("currentSpread"),
+                "halfLife": metrics.get("halfLife"),
+                "cointegrationPValue": metrics.get("cointegrationPValue"),
+                "isCointegrated": metrics.get("isCointegrated"),
+                "sharpe": metrics.get("sharpe"),
+                "signalType": metrics.get("signalType"),
+                "dataPoints": metrics.get("dataPoints"),
             }
             
             analysis_data = {
@@ -264,14 +280,34 @@ def _calculate_metrics_sync(symbol_a: str, symbol_b: str, limit: int) -> Optiona
             app.logger.error(f"No analysis data in response")
             return None
         
+        # Derive a useful volatility value when not provided by upstream.
+        # Prefer provided 'volatility'; otherwise fall back to 'spreadStd' as a proxy.
+        spread_std = float(analysis.get("spreadStd", 0.0) or 0.0)
+        upstream_vol = analysis.get("volatility")
+        derived_vol = float(upstream_vol) if upstream_vol is not None else spread_std
+        # Guard against non-finite or negative numbers
+        if not isinstance(derived_vol, (int, float)) or derived_vol != derived_vol or derived_vol < 0:
+            derived_vol = spread_std if spread_std >= 0 else 0.0
+
         metrics = {
             "zScore": analysis.get("zScore", 0.0),
             "corr": analysis.get("correlation", 0.0),
             "mean": analysis.get("spreadMean", 0.0),
-            "std": analysis.get("spreadStd", 1.0),
+            "std": spread_std if spread_std > 0 else float(analysis.get("spreadStd", 1.0) or 1.0),
             "beta": analysis.get("beta", 1.0),
-            "volatility": 0.0,
+            "volatility": derived_vol,
+            # Extended upstream fields (optional)
+            "currentSpread": analysis.get("currentSpread"),
+            "halfLife": analysis.get("halfLife"),
+            "cointegrationPValue": analysis.get("cointegrationPValue"),
+            "isCointegrated": analysis.get("isCointegrated"),
+            "sharpe": analysis.get("sharpe"),
+            "signalType": analysis.get("signalType"),
         }
+
+        # Top-level metadata passthrough
+        if isinstance(data.get("dataPoints"), int):
+            metrics["dataPoints"] = data["dataPoints"]
         
         return metrics
         
@@ -286,6 +322,13 @@ def _calculate_metrics_sync(symbol_a: str, symbol_b: str, limit: int) -> Optiona
             "std": random.uniform(0.001, 0.01),
             "beta": random.uniform(0.8, 1.5),
             "volatility": random.uniform(0.01, 0.05),
+            "currentSpread": None,
+            "halfLife": None,
+            "cointegrationPValue": None,
+            "isCointegrated": None,
+            "sharpe": None,
+            "signalType": None,
+            "dataPoints": limit,
         }
 
 

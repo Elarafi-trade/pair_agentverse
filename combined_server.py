@@ -177,8 +177,6 @@ def analyze():
                 # extended optional metrics for richer prompt
                 "currentSpread": metrics.get("currentSpread"),
                 "halfLife": metrics.get("halfLife"),
-                "cointegrationPValue": metrics.get("cointegrationPValue"),
-                "isCointegrated": metrics.get("isCointegrated"),
                 "sharpe": metrics.get("sharpe"),
                 "signalType": metrics.get("signalType"),
             }
@@ -195,8 +193,6 @@ def analyze():
                 # passthrough extended fields when present
                 "currentSpread": metrics.get("currentSpread"),
                 "halfLife": metrics.get("halfLife"),
-                "cointegrationPValue": metrics.get("cointegrationPValue"),
-                "isCointegrated": metrics.get("isCointegrated"),
                 "sharpe": metrics.get("sharpe"),
                 "signalType": metrics.get("signalType"),
                 "dataPoints": metrics.get("dataPoints"),
@@ -299,8 +295,6 @@ def _calculate_metrics_sync(symbol_a: str, symbol_b: str, limit: int) -> Optiona
             # Extended upstream fields (optional)
             "currentSpread": analysis.get("currentSpread"),
             "halfLife": analysis.get("halfLife"),
-            "cointegrationPValue": analysis.get("cointegrationPValue"),
-            "isCointegrated": analysis.get("isCointegrated"),
             "sharpe": analysis.get("sharpe"),
             "signalType": analysis.get("signalType"),
         }
@@ -324,8 +318,6 @@ def _calculate_metrics_sync(symbol_a: str, symbol_b: str, limit: int) -> Optiona
             "volatility": random.uniform(0.01, 0.05),
             "currentSpread": None,
             "halfLife": None,
-            "cointegrationPValue": None,
-            "isCointegrated": None,
             "sharpe": None,
             "signalType": None,
             "dataPoints": limit,

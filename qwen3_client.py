@@ -49,8 +49,6 @@ class Qwen3Analyzer:
         # Optional extended metrics (may be None)
         current_spread = metrics.get("currentSpread")
         half_life = metrics.get("halfLife")
-        coint_p = metrics.get("cointegrationPValue")
-        is_coint = metrics.get("isCointegrated")
         sharpe = metrics.get("sharpe")
         signal_type = metrics.get("signalType")
         
@@ -70,8 +68,6 @@ class Qwen3Analyzer:
 **Additional Metrics (if available):**
 {('- Current Spread: ' + str(current_spread)) if current_spread is not None else ''}
 {('- Half-life: ' + str(half_life)) if half_life is not None else ''}
-{('- Cointegration p-value: ' + str(coint_p)) if coint_p is not None else ''}
-{('- Cointegrated: ' + str(is_coint)) if is_coint is not None else ''}
 {('- Sharpe: ' + str(sharpe)) if sharpe is not None else ''}
 {('- Upstream signal: ' + str(signal_type)) if signal_type is not None else ''}
 

@@ -243,12 +243,12 @@ def analyze():
 def _calculate_metrics_sync(symbol_a: str, symbol_b: str, limit: int) -> Optional[dict]:
     """Fetch real trading pair metrics from pair-agent API.
     
-    Fetches metrics from https://pair-agent.onrender.com/api/analyze
+    Fetches metrics from https://pair-agent-a2ol.onrender.com/api/analyze
     which provides correlation, z-score, beta, spread statistics, etc.
     """
     import requests
     
-    pair_agent_base = os.getenv("AGENT_API_BASE", "https://pair-agent.onrender.com")
+    pair_agent_base = os.getenv("AGENT_API_BASE", "https://pair-agent-a2ol.onrender.com")
     url = f"{pair_agent_base}/api/analyze"
     
     payload = {

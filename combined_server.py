@@ -257,7 +257,7 @@ def _calculate_metrics_sync(symbol_a: str, symbol_b: str, limit: int) -> Optiona
     """Fetch real metrics from pair-agent API."""
     import requests
     
-    pair_agent_base = os.getenv("AGENT_API_BASE", "https://pair-agent.onrender.com")
+    pair_agent_base = os.getenv("AGENT_API_BASE", "https://pair-agent-a2ol.onrender.com")
     url = f"{pair_agent_base}/api/analyze"
     
     payload = {

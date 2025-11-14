@@ -1,4 +1,4 @@
-"""Lightweight client for the pair-agent API (https://pair-agent.onrender.com)
+"""Lightweight client for the pair-agent API (https://pair-agent-a2ol.onrender.com)
 
 Provides: get_health, fetch_trades, fetch_performance, post_analyze and
 formatting helpers for quick integration into uagents or other Python services.
@@ -24,7 +24,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def _base() -> str:
-    return os.environ.get("AGENT_API_BASE", "https://pair-agent.onrender.com").rstrip("/")
+    return os.environ.get("AGENT_API_BASE", "https://pair-agent-a2ol.onrender.com").rstrip("/")
 
 
 def _get(url: str, timeout: int = 10) -> Any:
